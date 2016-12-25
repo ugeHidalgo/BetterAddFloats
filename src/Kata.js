@@ -12,7 +12,7 @@ function add(){
 
 function addTwoNumbers(n1,n2){    
     var digit, base = 10,
-        result =  [], carry = 0, value,
+        result =  [], final = [], carry = 0, value,
         num1 = [], num2 = [],
 
         integerPartOfN1 = getLeftOfNumber(n1),        
@@ -60,8 +60,9 @@ function addTwoNumbers(n1,n2){
         result.push(digit);
     }
     if (carry > 0) result.push(carry);
-        
-    return result.reverse().join('');
+
+    final = removeLeftCeros(result.reverse().join(''));
+    return removeRightCeros(final);
 }
 
 function addCerosToNumber(qty, num) {
@@ -86,11 +87,25 @@ function getRightOfNumber(num){
     return num.toString().slice(commaPos+1,num.toString().length);    
 }
 
-/*function removeLeftCeros(num) {
+function removeLeftCeros(num) {
     var pos = 0;
     while (num[pos]==='0' && num[pos]!='.'){
         pos++;
     }
+    if (num[pos]==='.' && pos > 0){
+        pos--;
+    }
     
     return num.slice(pos,num.length);
-}*/
+}
+
+function removeRightCeros(num) {
+    var pos = num.length-1;
+
+    if (num.indexOf('.') === -1 ) return num;
+    while (num[pos]==='0'){
+        pos--;
+    }
+    
+    return num.slice(0,pos+1);
+}

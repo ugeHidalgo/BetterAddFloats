@@ -53,7 +53,7 @@ describe('Kata', function() {
         });
     });
 
-    /*describe ('removeLeftCeros',function(){
+    describe ('removeLeftCeros',function(){
         it('should remove ceros from 0x.x ', function() {
             var number = '01.3',
               expected = '1.3';
@@ -81,7 +81,45 @@ describe('Kata', function() {
 
             expect(removeLeftCeros(number)).toEqual(expected,'removeLeftCeros('+ number + ') should be : ' + expected+'.');  
         });
-    });*/
+
+        it('should remove ceros from 0000x.x ', function() {
+            var number = '00001.3',
+              expected = '1.3';
+
+            expect(removeLeftCeros(number)).toEqual(expected,'removeLeftCeros('+ number + ') should be : ' + expected+'.');  
+        });
+    });
+
+    describe ('removeRightCeros',function(){
+
+        it('should NOT remove ceros from x0 ', function() {
+            var number = '30',
+              expected = '30';
+
+            expect(removeRightCeros(number)).toEqual(expected,'removeRightCeros('+ number + ') should be : ' + expected+'.');  
+        });
+
+        it('should remove ceros from x.x0 ', function() {
+            var number = '1.30',
+              expected = '1.3';
+
+            expect(removeRightCeros(number)).toEqual(expected,'removeRightCeros('+ number + ') should be : ' + expected+'.');  
+        });
+
+        it('should remove ceros from x.x0x0 ', function() {
+            var number = '1.3030',
+              expected = '1.303';
+
+            expect(removeRightCeros(number)).toEqual(expected,'removeRightCeros('+ number + ') should be : ' + expected+'.');  
+        });
+
+        it('should remove ceros from x.x000 ', function() {
+            var number = '1.3000',
+              expected = '1.3';
+
+            expect(removeRightCeros(number)).toEqual(expected,'removeRightCeros('+ number + ') should be : ' + expected+'.');  
+        });
+    });
 
     describe ('Bad numbers',function(){
 
@@ -229,5 +267,21 @@ describe('Kata', function() {
               
           expect(add(num1,num2)).toEqual(expected,'add(' + num1 + ',' + num2 + ') should be : ' + expected+'.');
         }); 
+
+        it('should calculate add of "10000.70" and "10000.170"', function() {
+          var num1 = '10000.70',
+              num2 = '10000.170',
+              expected = '20000.87';
+              
+          expect(add(num1,num2)).toEqual(expected,'add(' + num1 + ',' + num2 + ') should be : ' + expected+'.');
+        });
+
+        it('should calculate add of "0.300000" and "000000.103"', function() {
+          var num1 = '0.300000',
+              num2 = '000000.103',
+              expected = '0.403';
+              
+          expect(add(num1,num2)).toEqual(expected,'add(' + num1 + ',' + num2 + ') should be : ' + expected+'.');
+        });
     });
 });
